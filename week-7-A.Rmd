@@ -51,14 +51,24 @@ set.seed(38)
 **Prompt:** Create a graphic of the posterior probability distribution for H. Interpret it.
 
 ```{r s3}
+
+mean_H <- q_resamples_2 %>% 
+  summarize(mean = mean(mean_hours))
+
   ggplot(q_resamples_2, aes(x = mean_hours,
                             y = after_stat(count/sum(count)))) +
   geom_histogram(color = "white",
                  binwidth = 0.01) +
+  geom_density(color = "green") +
+  geom_vline(xintercept = 6.166878, size = 1.5,
+             linetype = "dashed", color = "red") +
   labs(x = "Mean Hours",
-       y = "Probability",
+       y = "Probability/Density",
        title = "Posterior Distribution for H") +
   theme_economist()
+
+
+
 ```
 
 
